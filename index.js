@@ -5,7 +5,8 @@
 // Usin
 const inquirer = require('inquirer');
 const fs = require('fs');
-const logo = require('./test.svg');
+const shapeVerdict = require('./lib/shapes');
+// const {Square, Circle, Triangle} = require('./lib/shapes');
 
 const questions = [
     {
@@ -17,7 +18,7 @@ const questions = [
     {
         type:"input",
         message: "Please type a color for the shape of your logo.",
-        name: "color"
+        name: "colorShape"
     },
     {
         type: "input",
@@ -27,30 +28,44 @@ const questions = [
     {
 
         type: "input",
-        message: "Please type a color for your logo.",
+        message: "Please type a color for your text.",
         name: "textColor"
 
     }
 ]
 
+const 
+
+
 questionPrompt = () => {
     inquirer.prompt(questions)
-    .then((questionData) => {
-        if (questionData.text.length > 3) {
+    .then((answers) => {
+        const questionAnswers = shapeVerdict ({
+            shape: `${answers.shape}`,
+            colorShape: `${answers.colorShape}`,
+            text: `${answers.text}`,
+            textColor: `${answers.textColor}`
+
+        })
+        
+
+        if (answers.text.length > 3) {
             console.log('Please enter no more than three characters for your text input!');
             return;
         } else {
             console.log('We got answers!');
             
-            writeToFile("logo.svg", questionData);
+           
+            console.log(answers);
         }
         
     })
-};
-
-writeToFile = (filename, data) => {
 
 };
+// Generate a new SVG using the user inputs from the inquirer prompts.
+// generateSvg = (answers) {
+//     const svg = 
+
 // }
 
 questionPrompt();
