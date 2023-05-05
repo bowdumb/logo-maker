@@ -65,22 +65,22 @@ questionPrompt = () => {
 };
 // Generate a new SVG using the user inputs from the inquirer prompts.
 function writeToFile(fileName, questionAnswers) {
-    let svgShape;
+    // let svgShape;
     
     if (questionAnswers.shape === "Circle") {
-        svgShape = `<circle cx="50" cy="50" r="40" fill="${questionAnswers.colorShape}"/>`
+        svgShape = `<circle cx="150" cy="110" r="90" fill="${questionAnswers.colorShape}"/>`
     
     }else if (questionAnswers.shape === "Triangle") {
         svgShape = `<polygon points="150, 18 244, 182 56, 182" fill="${questionAnswers.colorShape}"/>`
     } else {
-        svgShape = `<rect x="10" y="10" width="80" height="80" fill="${questionAnswers.colorShape}"/>`
+        svgShape = `<rect x="75" y="40" width="150" height="150" fill="${questionAnswers.colorShape}"/>`
     };
 
     const { shape, colorShape, text, textColor } = questionAnswers;
     const svgValues = `
         <svg width="300" height="300">
-            <${svgShape} fill="${colorShape}">
-                <text x="50" y="50" font-size="20" fill="${textColor}">${text}</text>
+            ${svgShape} fill="${colorShape}"
+            <text x="122.5" y="122.5" font-size="30" fill="${textColor}">${text}</text>
             </${shape}>
         </svg>`
 
