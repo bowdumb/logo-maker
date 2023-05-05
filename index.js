@@ -1,14 +1,14 @@
-// Use inquirer to create a command-line application
-// Take the inputs from inquirer and use them to render the various elements for logo creation.
-// Consider if/else or choices for user input to render appropriate elements.
-// Render logo elements in a new document titled 'logo.svg'
-// Usin
+// The variable below implements functionality from the Inquirer.js NPM package.
 const inquirer = require('inquirer');
+// The variable below implements functionality from the File System module contained within the Node.js NPM package.
 const fs = require('fs');
+// The variable below enables access to the exported shapes.js file within the /lib directory, enabling access to the classes it contains.
 let svgShape = require('./lib/shapes');
+// The variable below is destructuring the Square, Circle, and Triangle classes from the shapes.js module, and making them accessible
+// within the scope of this index.js file.
 const {Square, Circle, Triangle} = require('./lib/shapes');
-console.log({Square, Circle, Triangle})
-
+// The variable below establishes an array containing the four objects that make up the Inquirer.js prompts that deliver the questions
+// in order to gather the necessary user responses.
 const questions = [
     {
         type:"checkbox",
@@ -33,14 +33,13 @@ const questions = [
         name: "textColor"
 
     }
-]
-
-const 
-
-
+];
+// The questionPrompt function below serves the purpose of initiating the Inquirer.js prompts by passing the 'questions' variable as an argument. 
 questionPrompt = () => {
     inquirer.prompt(questions)
     .then((answers) => {
+// The questionAnswers variable below is created to store the user's answers to the Inquirer.js prompts. Once the key-value pairs are stored
+// this way, they can then be passed to the writeToFile function below.
         const questionAnswers =  {
             shape: `${answers.shape}`,
             colorShape: `${answers.colorShape}`,
@@ -49,24 +48,26 @@ questionPrompt = () => {
 
         }
         
-
+// The if/else statement below validates the user's input for the text they would like to include in their SVG logo. This ensures that
+// no more than three characters are generated. If more than three characters are generated, the console log will tell them that they 
+// have exceeded the limit and the execution of code will be ended, forcing them to start over. Otherwise, we will get a console log to let
+// the user know that their input has been verified.
         if (answers.text.length > 3) {
-            console.log('Please enter no more than three characters for your text input!');
+            console.log('Please enter no more than three characters for your text input! Please start again.');
             return;
         } else {
             console.log('We got answers!');
-            
-           
-            console.log(answers);
         }
+// The function below calls the writeToFile function, determines the file that will be written within it, and enables scoping to enable access
+//  to the questionAnswers values  within the writeToFile function.
     writeToFile('logo.svg', questionAnswers);
     })
 
 };
 // Generate a new SVG using the user inputs from the inquirer prompts.
 function writeToFile(fileName, questionAnswers) {
-    // let svgShape;
-    
+// Below we have an if/else-if/else statement that determines the shape of the logo based on the user's selection in the Inquirer.js prompts.
+// Values are assigned to the svgShape variable with the corresponding values depending on what shape is selected.
     if (questionAnswers.shape === "Circle") {
         svgShape = `<circle cx="150" cy="110" r="90" fill="${questionAnswers.colorShape}"/>`
     
@@ -77,46 +78,26 @@ function writeToFile(fileName, questionAnswers) {
     };
 
     const { shape, colorShape, text, textColor } = questionAnswers;
+    // The code below serves to establish some boilerplate values for our SVG logo. This includes the height, width, and text properties.
+    // The code is wrapped in backticks so that we can enable the use of template literals in order to integrate the 
     const svgValues = `
-        <svg width="300" height="300">
+        <svg width="300" height="200">
             ${svgShape} fill="${colorShape}"
             <text x="122.5" y="122.5" font-size="30" fill="${textColor}">${text}</text>
             </${shape}>
-        </svg>`
-
-      
-    ;
-    fs.writeFile(fileName, svgValues, (error) => {
+        </svg>`;
+// The code below uses the File System Node.js module to write our SVG image to the disk, and create the final product. The first parameter
+// is the fileName to be written to, the second is what will be written (svgValues), and the third is a callback function that runs once the
+// file writing code has been executed, to check for errors in that process and display a console.log to the user letting them know whether
+// the code was successfully executed or not.
+    fs.writeFile('logo.svg', svgValues, (error) => {
         if(error) {
             console.log('Error writing SVG to file.');
         } else {
-            console.log('Success!');
+            console.log("Generated logo.svg");
         }
     })
 }
-
-
-
-
-
-    //     fs.writeFile('logo.svg', JSON.stringify(questionAnswers), (error) => {
-        
-//         let shapeType;
-//         if(questionAnswers.shape === "Circle") {
-//             shapeType = new Circle();
-//             return `<circle cx="150" cy="115" r="80" fill="${questionAnswers.colorShape}"/>`
-//         }
-        
-        
-        
-        
-//         if(error) {
-//             console.log('Error writing SVG to file.');
-//         } else {
-//             console.log('Success!');
-//         }
-//     })
-// }
-
-
+// The code below calls the questionPrompt function and enables it's execution once the user invokes it by running "node index.js" in
+// the terminal's command line. This sets the rest of our JavaScript functionality into motion!
 questionPrompt();

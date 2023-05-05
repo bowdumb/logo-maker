@@ -1,6 +1,6 @@
 
-        <svg width="300" height="300">
-            <rect x="75" y="40" width="150" height="150" fill="Yellow"/> fill="Yellow"
-            <text x="122.5" y="122.5" font-size="30" fill="Purple">JDC</text>
+        <svg width="300" height="200">
+            <rect x="75" y="40" width="150" height="150" fill="yellow"/> fill="yellow"
+            <text x="122.5" y="122.5" font-size="30" fill="purple">JDC</text>
             </Square>
         </svg>

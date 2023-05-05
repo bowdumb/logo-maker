@@ -1,6 +1,6 @@
 
-        <svg width="300" height="300">
-            <rect x="75" y="40" width="150" height="150" fill="pink"/> fill="pink"
-            <text x="122.5" y="122.5" font-size="30" fill="blue">JDC</text>
-            </>
+        <svg width="300" height="200">
+            <circle cx="150" cy="110" r="90" fill="purple"/> fill="purple"
+            <text x="122.5" y="122.5" font-size="30" fill="green">JDC</text>
+            </Circle>
         </svg>
